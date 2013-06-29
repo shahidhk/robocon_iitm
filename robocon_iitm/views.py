@@ -11,3 +11,9 @@ def test(request):
     
 def home(request):
     return render_to_response ('base.html', {}, context_instance=RequestContext(request))
+
+def template(request):
+    return render_to_response ('template.html', {}, context_instance=RequestContext(request))
+    
+def blur(request):
+    return render_to_response ('blur.html', {}, context_instance=RequestContext(request))
