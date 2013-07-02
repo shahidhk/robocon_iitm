@@ -20,7 +20,7 @@ def home(request):
 	else:
 		return render_to_response ('base.html', {}, context_instance=RequestContext(request))
 
-def blog(request):
+def newblog(request):
 	'''View for the blog page'''
 	if request.method == 'POST':
 		data=request.POST.copy()
