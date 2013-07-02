@@ -58,3 +58,12 @@ class Team(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+class ContactRequests(models.Model):
+	'''Stores data from the contact us form in home page'''
+	name=models.CharField(max_length=50)
+	email=models.EmailField()
+	message=models.TextField()
+
+	def __unicode__(self):
+		return self.name

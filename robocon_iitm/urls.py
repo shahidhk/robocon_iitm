@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^$', 'robocon_iitm.views.home', name='home'),
     url(r'^blur$', 'robocon_iitm.views.blur', name='blur'),
     url(r'^template$', 'robocon_iitm.views.template', name='template'),
+    url(r'^blog$', 'robocon_iitm.views.blog', name='blog'),
 
 )

@@ -1,0 +1,13 @@
+<html>
+<head>
+	<title>IITM Robocon Blog</title>
+</head>
+<body>
+	<form action="" method="post">
+        <table>
+            {{ form.as_table }}
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+</html>
