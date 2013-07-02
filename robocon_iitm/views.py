@@ -14,7 +14,7 @@ def test(request):
 def home(request):
 	if request.method ==  'POST':
 		data=request.POST.copy()
-		contact=ContactRequests.objects.create(name=data['name'],timestamp=data['timestamp'],pic=data['pic'],email=data['email'],message=data['message'])
+		contact=ContactRequests.objects.create(name=data['name'],email=data['email'],message=data['message'])
 		contact.save()
 		return HttpResponse('<center>Your request has been submitted succesfully</center>')
 	else:
@@ -23,26 +23,29 @@ def home(request):
 def newblog(request):
 	'''View for creating a new blog'''
 	if request.method == 'POST':
-		'''
-		data=request.POST.copy()
-		files=request.FILES.copy()
-		blogdata=Thread.objects.create(title=data['title'],subject=data['subject'],pic=files['pic'],description=data['description'])
-		blogdata.save()
-		'''
-		the_model= Blog(request.POST, request.FILES)
-		if the_model.is_valid():
-			data=the_model.cleaned_data
-			print 'valid'
-			print data['title']
-			return HttpResponse('<center>Your blog has been submitted succesfully</center>')
-
+		data= Blog(request.POST, request.FILES)
+		if data.is_valid():
+			data.save()
+			return HttpResponse('<script>alert("Your blog has been submitted succesfully")</script><center>alert(Your blog has been submitted succesfully)</center>')
 		else:
-			print "not valid"
 			return HttpResponse('<center>Enter valid data</center>')
-
 	else:
 		form=Blog()
-	return render(request, 'blog.html', {'form': form})
+	return render(request, 'newblog.html', {'form': form})
+
+def blog(request):
+	bloglist = Thread.objects.all()
+	num=0
+	thirdone=[]
+	for i in bloglist:
+		i.description = (i.description[:100] + '..') if len(i.description) > 75 else i.description
+		num=num+1
+		print i.pic
+		if num % 3 == 0:
+			thirdone.append(num)
+		# The above three lines make a list having multiples of 3 upto the total number of posts
+		# Required to populate the template having three posts in a row
+	return render(request, 'blog.html', {'bloglist': bloglist,'count':thirdone})
 
 def template(request):
     return render_to_response ('template.html', {}, context_instance=RequestContext(request))

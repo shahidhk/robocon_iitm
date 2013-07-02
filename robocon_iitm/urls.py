@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-
+import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -17,6 +17,10 @@ urlpatterns = patterns('',
     url(r'^$', 'robocon_iitm.views.home', name='home'),
     url(r'^blur$', 'robocon_iitm.views.blur', name='blur'),
     url(r'^template$', 'robocon_iitm.views.template', name='template'),
-    url(r'^blog/new$', 'robocon_iitm.views.newblog', name='blog'),
+    url(r'^blog/new$', 'robocon_iitm.views.newblog', name='newblog'),
+    url(r'^blog$', 'robocon_iitm.views.blog', name='blog'),
 
-)
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+                 {'document_root': settings.MEDIA_ROOT}),
+
+)	

@@ -25,7 +25,7 @@ class UserProfile(models.Model):
 class Thread(models.Model):
 	'''Defines the data posted in thread'''
 	title = models.CharField(max_length=200)
-	subject = models.CharField(max_length=200)
+	author = models.CharField(max_length=50)
 	timestamp = models.DateTimeField(auto_now=True,null=False)
 	pic = models.ImageField(upload_to='blog')
 	description = models.TextField()
