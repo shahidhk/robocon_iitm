@@ -34,18 +34,25 @@ def newblog(request):
 	return render(request, 'newblog.html', {'form': form})
 
 def blog(request):
-	bloglist = Thread.objects.all()
-	num=0
-	thirdone=[]
-	for i in bloglist:
-		i.description = (i.description[:100] + '..') if len(i.description) > 75 else i.description
-		num=num+1
-		print i.pic
-		if num % 3 == 0:
-			thirdone.append(num)
+	try:
+		bloglist = Thread.objects.all()
+		num=0
+		thirdone=[]
+		for i in bloglist:
+			# This will truncates the description if it is greater than 100 characters and adds some dots
+			i.description = (i.description[:100] + " ....") if len(i.description) > 100 else i.description
+			num=num+1
+			if num % 3 == 0:
+				thirdone.append(num)
 		# The above three lines make a list having multiples of 3 upto the total number of posts
 		# Required to populate the template having three posts in a row
-	return render(request, 'blog.html', {'bloglist': bloglist,'count':thirdone})
+		return render(request, 'blog.html', {'bloglist': bloglist,'count':thirdone})
+	except Exception, e:
+		return Http404
+
+def blogpost(request,offset):
+	post = Thread.objects.get(pk=offset)
+	return render(request, 'blogpost.html', {'post' : post})
 
 def template(request):
     return render_to_response ('template.html', {}, context_instance=RequestContext(request))

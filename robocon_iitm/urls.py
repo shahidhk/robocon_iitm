@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^template$', 'robocon_iitm.views.template', name='template'),
     url(r'^blog/new$', 'robocon_iitm.views.newblog', name='newblog'),
     url(r'^blog$', 'robocon_iitm.views.blog', name='blog'),
+    url(r'^blog/(\d+)$', 'robocon_iitm.views.blogpost', name='blogpost'),
 
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',
                  {'document_root': settings.MEDIA_ROOT}),

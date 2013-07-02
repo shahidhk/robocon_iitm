@@ -96,12 +96,12 @@
                      <div class="span4 post">
                 {% endif %}
                     <div class="img">
-                        <a href="#">
+                        <a href="blog/{{ item.id }}">
                             <img src="{{ MEDIA_URL }}{{ item.pic }}" alt="">
                         </a>
                     </div>
                     <div class="text">
-                        <h5><a href="#">{{ item.title }}</a></h5>
+                        <h5><a href="blog/{{ item.id }}">{{ item.title }}</a></h5>
                         <span class="date">{{ item.timestamp }}</span>
                         <p>
                             {{ item.description }}
@@ -111,7 +111,7 @@
                         <h6>{{ item.author }}</h6>
                         <p>Creative Director</p>
                     </div>
-                    <a class="plus_wrapper" href="#">
+                    <a class="plus_wrapper" href="blog/{{ item.id }}">
                         <span>&#43;</span>
                     </a>
                 </div>
