@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-get_image_path='/images'
+
 
 class UserProfile(models.Model):
 	'''Additional data for users'''
@@ -12,7 +12,7 @@ class UserProfile(models.Model):
 	roll_no = models.CharField(max_length=8)
 	dob = models.DateField()
 	mobile = models.IntegerField(max_length=10)
-	display_pic = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+	display_pic = models.ImageField(upload_to='users', blank=True, null=True)
 	facebook = models.URLField()
 	twitter = models.URLField()
 	linkedin = models.URLField()
@@ -27,7 +27,7 @@ class Thread(models.Model):
 	title = models.CharField(max_length=200)
 	subject = models.CharField(max_length=200)
 	timestamp = models.DateTimeField(auto_now=True,null=False)
-	pic = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+	pic = models.ImageField(upload_to='blog')
 	description = models.TextField()
 
 	def __unicode__(self):
@@ -46,7 +46,7 @@ class Contact(models.Model):
 class Sponsor(models.Model):
 	'''Defines data about sponsors'''
 	name = models.CharField(max_length=50)
-	logo = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+	logo = models.ImageField(upload_to='spons', blank=True, null=True)
 	website = models.URLField()
 
 	def __unicode__(self):

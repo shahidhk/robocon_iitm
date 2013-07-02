@@ -21,12 +21,25 @@ def home(request):
 		return render_to_response ('base.html', {}, context_instance=RequestContext(request))
 
 def newblog(request):
-	'''View for the blog page'''
+	'''View for creating a new blog'''
 	if request.method == 'POST':
+		'''
 		data=request.POST.copy()
-		blogdata=Thread.objects.create(title=data['title'],subject=data['subject'],description=data['description'])
+		files=request.FILES.copy()
+		blogdata=Thread.objects.create(title=data['title'],subject=data['subject'],pic=files['pic'],description=data['description'])
 		blogdata.save()
-		return HttpResponse('<center>Your blog has been submitted succesfully</center>')
+		'''
+		the_model= Blog(request.POST, request.FILES)
+		if the_model.is_valid():
+			data=the_model.cleaned_data
+			print 'valid'
+			print data['title']
+			return HttpResponse('<center>Your blog has been submitted succesfully</center>')
+
+		else:
+			print "not valid"
+			return HttpResponse('<center>Enter valid data</center>')
+
 	else:
 		form=Blog()
 	return render(request, 'blog.html', {'form': form})
