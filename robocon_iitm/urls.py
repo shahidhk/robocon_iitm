@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 import settings
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -20,6 +21,8 @@ urlpatterns = patterns('',
     url(r'^blog/new$', 'robocon_iitm.views.newblog', name='newblog'),
     url(r'^blog$', 'robocon_iitm.views.blog', name='blog'),
     url(r'^blog/(\d+)$', 'robocon_iitm.views.blogpost', name='blogpost'),
+
+    (r'^comments', include('django.contrib.comments.urls')),
 
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',
                  {'document_root': settings.MEDIA_ROOT}),

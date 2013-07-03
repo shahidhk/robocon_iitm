@@ -2,6 +2,7 @@
 <html>
 
 {% load staticfiles %}
+{% load comments %}
 
 <head>
     <title>Business Template</title>
@@ -99,9 +100,13 @@
                         </div>
                     </div>
 
+{% get_comment_count for robocon_iitm.thread post.id as comment_count %}
+
                     <div class="comments">
                         <h4>Comments</h4>
-
+#comments">{{ comment_count }} Comment{{ comment_count|pluralize }}
+                            {% get_comment_list for robocon_iitm.thread post.id as comment_list %}
+                    {% for comment in comment_list %}
                         <div class="comment">
                             <div class="row">
                                 <div class="span1">
@@ -109,18 +114,19 @@
                                 </div>
                                 <div class="span7">
                                     <div class="name">
-                                        Alejandra Galvan
+                                        {{ comment.person_name|escape }}
                                         <a href="#" class="reply">Reply</a>
                                     </div>
                                     <div class="date">
-                                        Oct 12, 2012
+                                       {{ comment.submit_date|date:"F j, Y" }} at {{ comment.submit_date|date:"P" }}
                                     </div>
                                     <div class="response">
-                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+                                       {{ comment.comment|escape|urlizetrunc:40|linebreaks }}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    {% endfor %}
                         <div class="comment">
                             <div class="row">
                                 <div class="span1">
