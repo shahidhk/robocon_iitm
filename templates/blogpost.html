@@ -104,7 +104,7 @@
 
                     <div class="comments">
                         <h4>Comments</h4>
-#comments">{{ comment_count }} Comment{{ comment_count|pluralize }}
+                            #comments">{{ comment_count }} Comment{{ comment_count|pluralize }}
                             {% get_comment_list for robocon_iitm.thread post.id as comment_list %}
                     {% for comment in comment_list %}
                         <div class="comment">
@@ -127,6 +127,7 @@
                             </div>
                         </div>
                     {% endfor %}
+<!--
                         <div class="comment">
                             <div class="row">
                                 <div class="span1">
@@ -185,26 +186,43 @@
                             </div>
                         </div>
                     </div>
-
+-->
+                    {% get_comment_form for robocon_iitm.thread post.id as form %}
                     <div class="new_comment">
                         <h4>Add Comment</h4>
-                        <form>
+                        <form action="{% comment_form_target %}" method="post">
+                            {% csrf_token %}
+                            {{ form.as_table }}
+                            <!--
+                            {% for field in form %}
+                            {% ifequal field.name "name" %}
                             <div class="row">
                                 <div class="span4">
-                                    <input type="text" placeholder="Name" name="name" />
+                                    <input type="text" placeholder="Name" name="name" id="id_name"/>
                                 </div>
+                            {% else %}{% ifequal field.name "email" %}
                                 <div class="span4">
-                                    <input type="text" placeholder="Email" name="email" />
+                                    <input type="text" placeholder="Email" name="email" id="id_email"/>
                                 </div>
                             </div>
+                            {% else %}{% ifequal field.name "comment" %}
                             <div class="row">
                                 <div class="span8">
-                                    <textarea placeholder="Comments" rows="7"></textarea>
+                                    <textarea placeholder="Comments" rows="7" name="comment" id="id_comment"></textarea>
                                 </div>
                             </div>
+                            {% else %}{% ifequal field.name "url" %}
+                            <input type="hidden" name="url" id="id_url" />
+                            {% else %}{% ifequal field.name "honeypot" %}
+                            <input type="hidden" name="honeypot" id="id_honeypot" />
+                            {% endifequal %}{% endifequal %}{% endifequal %}{% endifequal %}{% endifequal %}
+                            {% endfor %}
                             <div class="row">
                                 <div class="span8">
-                                    <a href="#" class="btn send">Add comment</a>
+                            -->
+
+                                    <!--<a href="#" class="btn send">Add comment</a>-->
+                                    <input type="submit" class="btn send" name="submit" value="Post">
                                 </div>
                             </div>
                         </form>
