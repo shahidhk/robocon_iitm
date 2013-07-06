@@ -104,7 +104,11 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.comments',
     'robocon_iitm',
+    'blog',
+    'home',
     'misc',
+    'sponsors',
+    'users',
     'misc.dajax',
     'misc.dajaxice',
 )

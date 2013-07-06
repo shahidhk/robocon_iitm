@@ -7,7 +7,7 @@ class Sponsor(models.Model):
     name = models.CharField(max_length=50) # Name of the sponsor/company
     logo = models.ImageField(upload_to='spons', blank=True, null=True) # An image field for their logo
     website = models.URLField() # URL of their site
-    # @shahid put toutube, facebook, etc here also.
+    # @shahid put youtube, facebook, etc here also.
 
     def __unicode__(self):
         return self.name

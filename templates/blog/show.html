@@ -1,0 +1,59 @@
+{% load staticfiles %}
+
+<!-- Extra styles -->
+
+<!-- Extra scripts -->
+
+<!-- Content - Features -->
+    <div id="blog">
+        <div class="container">
+            <div class="section_header">
+                <h3>Blog</h3>
+                <input type="text" class="input-large search-query" placeholder="Search">
+            </div>
+
+            <!-- This will populate the page with each thread in database, giving special consideration
+                to each post which is a multiple of 3, ie in each row there are 3 post -->
+            <!-- Post Row -->
+            <div class="row post_row">
+                <!-- Post -->
+                {% for item in bloglist %}
+                    <div class="span4 post {% if forloop.counter|divisibleby:3 %}last {% endif %}">
+                        <div class="img">
+                            <a href="blog/{{ item.id }}">
+                                <img src="{{ MEDIA_URL }}{{ item.pic }}" alt="">
+                            </a>
+                        </div>
+                        <div class="text">
+                            <h5><a href="blog/{{ item.id }}">{{ item.title }}</a></h5>
+                            <span class="date">{{ item.timestamp }}</span>
+                            <p>
+                                {{ item.description }}
+                            </p>
+                        </div>
+                        <div class="author_box">
+                            <h6>{{ item.author }}</h6>
+                            <p>Creative Director</p>
+                        </div>
+                        <a class="plus_wrapper" href="blog/{{ item.id }}">
+                            <span>&#43;</span>
+                        </a>
+                        </div>
+                    </div>
+                
+                {% endfor %}
+            </div>
+            <!-- Pagination not implemented now
+            <div class="pagination">
+                <ul>
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+        -->
+        </div>
+    </div>

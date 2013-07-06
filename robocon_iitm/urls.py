@@ -26,9 +26,9 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^$', 'misc.views.home', name='home'),
-    url(r'^blur$', 'misc.views.blur', name='blur'),
-    url(r'^template$', 'misc.views.template', name='template'),
+    url(r'^$', 'home.views.home', name='home'),
+    url(r'^blur$', 'home.views.blur', name='blur'),
+    url(r'^template$', 'home.views.template', name='template'),
     
     url(r'^blog/new$', 'blog.views.newblog', name='newblog'),
     url(r'^blog$', 'blog.views.blog', name='blog'),

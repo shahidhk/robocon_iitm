@@ -9,6 +9,9 @@ from misc.dajaxice.core import dajaxice_functions
 
 # From models
 
+# From forms
+#from sponsors.forms import ContactRequests
+
 # From python
 import datetime
 
@@ -18,13 +21,9 @@ def test(request):
     return HttpResponse(html)
     
 def home(request):
-    if request.method ==  'POST':
-        data=request.POST.copy()
-        contact=ContactRequests.objects.create(name=data['name'],email=data['email'],message=data['message'])
-        contact.save()
-        return HttpResponse('<center>Your request has been submitted succesfully</center>')
-    else:
-        return render_to_response ('base.html', {}, context_instance=RequestContext(request))
+    # @Shahid : Todo - make all forms django forms - contact us is not a django form
+    #form = 
+    return render_to_response ('base.html', {}, context_instance=RequestContext(request))
 
 def template(request):
     return render_to_response ('template.html', {}, context_instance=RequestContext(request))

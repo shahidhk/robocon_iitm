@@ -19,7 +19,11 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}" media="screen, projection">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" media="screen, projection">
+    
+    {% block extrastyles %}
+    {% endblock %}
+    
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -27,6 +31,8 @@
 
 <body class="pull_top" style="">
     <!-- Top Navbar -->
+    
+    {% block navbar %}
     <div class="navbar transparent navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -62,8 +68,8 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="blog">View Blog</a></li>
-                            <li><a href="blog/new">Post a new Blog</a></li>
+                            <li><a href="#" onclick="javascript:do_dajax(Dajaxice.blog.show, Dajax.process, {}, 'features');">View Blog</a></li>
+                            <li><a href="#" onclick="javascript:do_dajax(Dajaxice.blog.new_get, Dajax.process, {}, 'features');">Post a new Blog</a></li>
                         </ul>
                     </li>
                     <li><a href="#">AT ROBOCON</a></li>
@@ -78,213 +84,45 @@
         </div>
       </div>
     </div>
+    {% endblock %}
 
-    <!-- The slider containing the main headers -->
-    <section id="feature_slider" class="disabled">
-        <!-- 
-            Each slide is composed by <img> and .info
-            - .info's position is customized with css in index.css
-            - each <img> parallax effect is declared by the following params inside its class:
-            
-            example: class="asset left-472 sp600 t120 z3"
-            left-472 means left: -472px from the center
-            sp600 is speed transition
-            t120 is top to 120px
-            z3 is z-index to 3
-            Note: Maintain this order of params
+    {% block content %}
+        
+        {% block modal %}
+            <div class="modal hide" id="id_modal"> <!-- common modal used by stuff -->    
+            </div>
+        {% endblock %}
 
-            For the backgrounds, you can combine from the bgs folder :D
-        -->
-        <article class="slide" id="showcasing" style="background-image: url({% static 'img/backgrounds/landscape.png' %}); display: none; background-position: 50% 0%; background-repeat: repeat no-repeat;">
-            <img class="asset left-30 sp600 t120 z1" src="{% static 'img/macbook.png' %}">
-            <div class="info" style="display: none;">
-                <h2>Beautiful theme for showcasing your works.</h2>
+        {% block messages %}
+            <div class="alert hide" id="id_alert"> <!-- alert for javascript -->
+                <button type="button" class="close" onclick="js_alert_hide();">&times;</button>
+                <strong></strong>
             </div>
-        </article>
-        <article class="slide" id="ideas" style="background-image: url({% static 'img/backgrounds/aqua.jpg' %}); display: none; background-position: 50% 0%; background-repeat: repeat no-repeat;">
-            <div class="info" style="display: none;">
-                <h2>We love to turn ideas into beautiful things.</h2>
-            </div>
-            <img class="asset left-480 sp600 t260 z1" src="{% static 'img/left.png' %}">
-            <img class="asset left-210 sp600 t213 z2" src="{% static 'img/middle.png' %}">
-            <img class="asset left60 sp600 t260 z1" src="{% static 'img/right.png' %}">
-        </article>
-        <article class="slide" id="tour" style="background-image: url({% static 'img/backgrounds/color-splash.jpg' %}); display: none; background-position: 50% 0%; background-repeat: repeat no-repeat;">
-            <img class="asset left-472 sp650 t210 z3" src="{% static 'img/ipad.png' %}">
-            <img class="asset left-365 sp600 t270 z4" src="{% static 'img/iphone.png' %}">
-            <img class="asset left-350 sp450 t135 z2" src="{% static 'img/desktop.png' %}">
-            <img class="asset left-185 sp550 t220 z1" src="{% static 'img/macbook(1).png' %}">
-            <div class="info" style="display: none;">
-                <h2>Fully Responsive theme</h2>
-                <a href="http://cleancanvas.herokuapp.com/features.html">TOUR THE PRODUCT</a>
-            </div>
-        </article>
-        <article class="slide" id="responsive" style="background-image: url({% static 'img/backgrounds/indigo.jpg' %}); display: none; background-position: 50% 0%; background-repeat: repeat no-repeat;">
-            <img class="asset left-472 sp600 t120 z3" src="{% static 'img/html5.png' %}">
-            <img class="asset left-190 sp500 t120 z2" src="{% static 'img/css3.png' %}">
-            <div class="info" style="display: none;">
-                <h2>
-                    Responsive <strong>HTML5 &amp; CSS3</strong>
-                    Theme
-                </h2>                
-            </div>
-        </article>
-        <a href="" id="slide-left" style="display: inline;"></a>
-        <a href="" id="slide-right" style="display: inline;"></a>
-    </section>
-
-    <div id="showcase">
-        <div class="container">
-            <div class="section_header">
-                <h3>Our Teams</h3>
-            </div>            
-            <div class="row feature_wrapper">
-                <!-- Features Row -->
-                <div class="features_op1_row">
-                    <!-- Feature -->
-                    <div class="span4 feature first">
-                        <div class="img_box">
-                            <a href="#">
-                                <img src="{% static 'img/service1.png' %}">
-                                <span class="circle"> 
-                                    <span class="plus">+</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="text">
-                            <h6>Electronics</h6>
-                            <p>
-                                The Electronics team designs the circuit boards and does Research on various types of new devices that can be used.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Feature -->
-                    <div class="span4 feature">
-                        <div class="img_box">
-                            <a href="#">
-                                <img src="{% static 'img/service2.png' %}">
-                                <span class="circle"> 
-                                    <span class="plus">+</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="text">
-                            <h6>Mehcanical &amp; Fabrication</h6>
-                            <p>
-                                A team dedicated to designing and making mechanical structures perfect, and also fabricating them with various new and innovative techniques.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Feature -->
-                    <div class="span4 feature last">
-                        <div class="img_box">
-                            <a href="#">
-                                <img src="{% static 'img/service3.png' %}">
-                                <span class="circle"> 
-                                    <span class="plus">+</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="text">
-                            <h6>Algorithm and Coding</h6>
-                            <p>
-                                An algorithm team that uses the components used by us to their fullest by implementing and creating unique algorithms for our specific needs.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="features">
-        <div class="container">
-            <div class="section_header">
-                <h3>Ongoing Projects</h3>
-            </div> 
-            <div class="row feature">
-                <div class="span6">
-                    <img src="{% static 'img/showcase1.png' %}">
-                </div>
-                <div class="span6 info">
-                    <h3>
-                        <img src="{% static 'img/features-ico1.png' %}">
-                        Automated Transwheel
-                    </h3>
-                    <p>
-                        A 3-wheeled transhweel bot which can move by an autonomous system with curve tracing capabilities.
-                    </p>
-                </div>
-            </div>
-            <div class="row feature ss">
-                <div class="span6 info">
-                    <h3>
-                        <img src="{% static 'img/features-ico2.png' %}">
-                        Processors
-                    </h3>
-                    <p>
-                        Using the power of fast processors to use better sensors and complicated algorithms which help to raise our game to another level.
-                    </p>
-                </div>
-                <div class="span6">
-                    <img src="{% static 'img/showcase2.png' %}" class="pull-right">
-                </div>
-            </div>
-            <div class="row feature ss">
-                <div class="span6">
-                    <img src="{% static 'img/showcase3.png' %}">
-                </div>
-                <div class="span6 info">
-                    <h3>
-                        <img src="{% static 'img/features-ico3.png' %}">
-                        Suspension
-                    </h3>
-                    <p>
-                        A project dedicated to find new suspension systems that help in locomotion of a four and also three wheeled bots significantly.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pricing Option -->
-    <div id="in_pricing">
-        <div class="container">
-            <div class="start">
-                <a href="http://cleancanvas.herokuapp.com/pricing.html">Contact Us !</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- List of clients / sponsors -->
-    <div id="clients">
-        <div class="container">
-            <div class="section_header">
-                <h3>Sponsors / Affiliates</h3>
-            </div>
-            <div class="row">
-                <div class="span2 client">
-                    <div class="img client1"></div>
-                </div>
-                <div class="span2 client">
-                    <div class="img client2"></div>
-                </div>
-                <div class="span2 client">
-                    <div class="img client3"></div>
-                </div>
-                <div class="span2 client">
-                    <div class="img client4"></div>
-                </div>
-                <div class="span2 client">
-                    <div class="img client5"></div>
-                </div>
-                <div class="span2 client">
-                    <div class="img client6"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+        {% endblock %}
+        
+        {% block slider %}
+            <!-- The slider containing the main headers -->
+            {% include "home/slider.html" %}
+        {% endblock %}
+        
+        {% block showcase %}
+            <!-- The showcase having 3 blocks of pic and text underneath -->
+            {% include "home/showcase.html" %}
+        {% endblock %}
+        
+        {% block features %}
+            <!-- 1 row for each feature - big_pic, iconic_pic, desc -->
+            {% include "home/features.html" %}
+        {% endblock %}
+        
+        {% block sponsors %}
+            <!-- List of clients / sponsors -->
+            {% include "home/sponsors.html" %}
+        {% endblock %}
+        
+    {% endblock %}
+    
+    {% block footer %}
     <!-- starts footer -->
     <footer id="footer">
         <div class="container">
@@ -344,12 +182,13 @@
                     <h3 class="footer_header">
                         Contact
                     </h3>
-                    <form action="" method="post">
+                    <form action="" method="post" id="form_footer_contactus">
                         {% csrf_token %}
-                        <input type="text" name="name" placeholder="Your name">
+                        {{ form.as_table }}
+                        <!--<input type="text" name="name" placeholder="Your name">
                         <input type="text" name="email" placeholder="Your email">
-                        <textarea rows="3" name="message" placeholder="Message"></textarea>
-                        <input type="submit" value="Send">
+                        <textarea rows="3" name="message" placeholder="Message"></textarea>-->
+                        <input type="button" value="Send">
                     </form>
                 </div>
             </div>
@@ -392,15 +231,21 @@
             </div>
         </div>
     </footer>
-
+    {% endblock %}
+    
     <!-- Scripts -->
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     {% dajaxice_js_import 'nocsrf' %}
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/theme.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
     <script src="{% static 'js/index-slider.js' %}"></script>
     <script src="{% static 'js/jquery.dajax.core.js' %}"></script>
+    <script src="{% static 'js/bootstrap.growl.min.js' %}"></script>
+    <!--<script src="{% static 'js/motion.js' %}"></script>-->
 
+    {% block extrascripts %}
+    {% endblock %}
 </body>
 
 </html>

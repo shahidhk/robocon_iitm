@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<div class="container">
+    <div class="section_header">
+        <h3>New Thread</h3>
+    </div> 
+    <div class="row feature">
+        <div class="span6">
+            <img src="{% static 'img/features/home/big1.png' %}">
+            <img src="{% static 'img/features/home/big2.png' %}">
+        </div>
+        <div class="span6 info">
+            <h3>
+                <img src="{% static 'img/features/home/ico1.png' %}">
+                Fill the form to add a new Thread
+            </h3>
+            <p>
+                <form enctype="multipart/form-data" action="" method="post" id="form_new_blog_post">
+                    {% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+                    <input type="button" value="Submit" onclick="javascript:Dajaxice.blog.new_post(Dajax.process, {'form' : $('#form_new_blog_post').serialize(true)});">
+                </form>
+
+            </p>
+        </div>
+    </div>
+</div>
+
