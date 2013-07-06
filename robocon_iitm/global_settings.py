@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# GLOBAL SETTINGS - ROBOCON IITM
 # Django settings for robocon_iitm project.
 
 import os.path
@@ -14,7 +15,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-AUTH_PROFILE_MODULE = 'UserProfile'
+AUTH_PROFILE_MODULE = 'users.models.UserProfile'
 
 MANAGERS = ADMINS
 
@@ -62,6 +63,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    "misc.dajaxice.finders.DajaxiceFinder",
 )
 
 # Make this unique, and don't share it with anybody.
@@ -81,7 +83,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'robocon_iitm.urls'
@@ -103,7 +105,12 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'robocon_iitm',
     'misc',
+    'misc.dajax',
+    'misc.dajaxice',
 )
+
+##*********************************************************************************
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -123,12 +130,26 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler'
         }
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'misc.dajaxice': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'misc.dajaxice.DajaxiceRequest': {
+            'handlers': ['console'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
@@ -145,5 +166,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
         "django.core.context_processors.static",
         "django.core.context_processors.tz",
         "django.contrib.messages.context_processors.messages",
-        "django.core.context_processors.request",
+        'django.core.context_processors.request',
 )
+
+LOGIN_URL = "/login/" # URL for login_required decorator to redirect to

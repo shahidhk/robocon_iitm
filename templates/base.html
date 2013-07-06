@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% load staticfiles %}
+{% load dajaxice_templatetags %}
 
 <html>
 <head>
@@ -387,11 +388,6 @@
                             
                         </div>
                     </div>
-                    <!--<div class="row copyright">
-                        <div class="span12">
-                            © 2013 Clean Canvas. All rights reserved. Theme by Detail Canvas.
-                        </div>
-                    </div>-->
                 </div>            
             </div>
         </div>
@@ -399,9 +395,11 @@
 
     <!-- Scripts -->
     <script src="{% static 'js/jquery-latest.js' %}"></script>
+    {% dajaxice_js_import 'nocsrf' %}
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/theme.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/index-slider.js' %}"></script>
+    <script src="{% static 'js/index-slider.js' %}"></script>
+    <script src="{% static 'js/jquery.dajax.core.js' %}"></script>
 
 </body>
 
