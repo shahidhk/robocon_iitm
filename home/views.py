@@ -10,7 +10,7 @@ from misc.dajaxice.core import dajaxice_functions
 # From models
 
 # From forms
-#from sponsors.forms import ContactRequests
+from sponsors.forms import ContactRequestsForm
 
 # From python
 import datetime
@@ -22,8 +22,9 @@ def test(request):
     
 def home(request):
     # @Shahid : Todo - make all forms django forms - contact us is not a django form
-    #form = 
-    return render_to_response ('base.html', {}, context_instance=RequestContext(request))
+    # @Ali: Done,  please hide the labels of the form elements using css, i have added placeholders 
+    form = ContactRequestsForm
+    return render_to_response ('base.html', {'form': form }, context_instance=RequestContext(request))
 
 def template(request):
     return render_to_response ('template.html', {}, context_instance=RequestContext(request))

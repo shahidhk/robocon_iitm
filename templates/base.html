@@ -184,11 +184,13 @@
                     </h3>
                     <form action="" method="post" id="form_footer_contactus">
                         {% csrf_token %}
-                        {{ form.as_table }}
-                        <!--<input type="text" name="name" placeholder="Your name">
-                        <input type="text" name="email" placeholder="Your email">
-                        <textarea rows="3" name="message" placeholder="Message"></textarea>-->
-                        <input type="button" value="Send">
+                        <table>
+                            {{ form.as_table }}
+                            <!--<input type="text" name="name" placeholder="Your name">
+                            <input type="text" name="email" placeholder="Your email">
+                            <textarea rows="3" name="message" placeholder="Message"></textarea>-->
+                        </table>
+                        <input type="button" value="Send" onclick="javascript:Dajaxice.home.contactus_post(Dajax.process, {'form' : $('#form_footer_contactus').serialize(true)});">
                     </form>
                 </div>
             </div>

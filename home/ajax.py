@@ -8,9 +8,11 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 # From views
 # From forms
-from sponsors.models import ContactRequests
+from sponsors.forms import ContactRequestsForm
 # From models
+from sponsors.models import ContactRequests
 # From Misc
+from misc.utilities import show_alert
 
 @dajaxice_register(method="GET", name="misc.hello_get")
 @dajaxice_register(method="POST", name="misc.hello_post")
@@ -33,13 +35,12 @@ def contactus(request, form = None):
     dajax = Dajax() # to hold dajax-json
     
     if request.method == 'POST':
-        form = deserialize_form(form)
+        form = ContactRequestsForm(deserialize_form(form))
         print form
         if form.is_valid(): # check validity
-            contact = ContactRequests.objects.create(
-                name = data['name'], email = data['email'], message = data['message']
-            )
-            contact.save()
+            form.save()
+            # @Ali: clear the form after saving it, the below command didnt do it, and make the send button pseud
+            #form = ContactRequestsForm()
             show_alert(dajax, "success", "Your message has been submitted. We will get back to you shortly")
         else: # form was not valid, show errors
             dajax.remove_css_class('#form_footer_contactus input', 'error')
